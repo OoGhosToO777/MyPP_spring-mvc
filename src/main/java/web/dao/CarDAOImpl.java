@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class CarDAOImpl implements CarDAO {
 
-    List<Car> carsList = new ArrayList<>();
+    final List<Car> carsList = new ArrayList<>();
 
     public List<Car> returnXCars(Integer count) {
         if (count == null || count > 5) {

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Car {
-    public String brand;
-    public String model;
-    public int year;
+    private String brand;
+    private String model;
+    private int year;
 
     public Car() {
     }
@@ -17,13 +17,18 @@ public class Car {
         this.year = year;
     }
 
-    public static List<Car> createFiveCars() {
-        List<Car> list = new ArrayList<>();
+    static final List<Car> list = new ArrayList<>();
+
+    static {
         list.add(new Car("MBW", "X7", 2022));
         list.add(new Car("Audi", "Q7", 2022));
         list.add(new Car("MBW", "M3", 2022));
         list.add(new Car("Mercedes", "GLC", 2022));
         list.add(new Car("Lexus", "LX", 2022));
+    }
+
+    public static List<Car> createFiveCars() {
+
         return list;
     }
 

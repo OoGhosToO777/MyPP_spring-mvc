@@ -1,15 +1,13 @@
 package web.dao;
 
 import model.User;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 import web.config.Util;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,9 +43,9 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Transactional(readOnly = true)
-    public User show(int id) {
+    public User showUser(int id) {
         String request = "SELECT * FROM users WHERE id=?";
-        User user = null;
+        User user;
         try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(request)) {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,7 +64,7 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Transactional
-    public void save(User user) {
+    public void saveUser(User user) {
         String request = "INSERT INTO users(first_name, last_name, email) VALUES(?, ?, ?);";
         try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(request)) {
             preparedStatement.setString(1, user.getFirstName());
@@ -80,7 +78,7 @@ public class UserDAOImpl implements UserDAO{
     }
 
     @Transactional
-    public void update(int id, User user) {
+    public void updateUser(int id, User user) {
         String request = "UPDATE Users SET first_name=?, last_name=?, email=? WHERE id=?";
         try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(request)) {
             preparedStatement.setString(1, user.getFirstName());
@@ -95,7 +93,7 @@ public class UserDAOImpl implements UserDAO{
     }
 
 //    @Transactional
-    public void delete(int id) {
+    public void deleteUser(int id) {
         String request = "DELETE FROM users WHERE id=?";
         try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(request)){
             preparedStatement.setInt(1, id);

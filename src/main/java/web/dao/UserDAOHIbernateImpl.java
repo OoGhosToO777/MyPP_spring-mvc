@@ -1,15 +1,15 @@
 package web.dao;
 
+import lombok.extern.slf4j.Slf4j;
 import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 //@Component
+@Slf4j
 public class UserDAOHIbernateImpl implements UserDAO {
 
     private final SessionFactory sessionFactory;
@@ -27,7 +27,7 @@ public class UserDAOHIbernateImpl implements UserDAO {
 
     @Override
     @Transactional
-    public User show(int id) {
+    public User showUser(int id) {
         Session session = sessionFactory.getCurrentSession();
         System.out.println("show");
         return session.get(User.class, id);
@@ -35,7 +35,7 @@ public class UserDAOHIbernateImpl implements UserDAO {
 
     @Override
     @Transactional
-    public void save(User user) {
+    public void saveUser(User user) {
         Session session = sessionFactory.getCurrentSession();
         session.persist(user);
         System.out.println("save");
@@ -43,7 +43,7 @@ public class UserDAOHIbernateImpl implements UserDAO {
 
     @Override
     @Transactional
-    public void update(int id, User updatedUser) {
+    public void updateUser(int id, User updatedUser) {
         Session session = sessionFactory.getCurrentSession();
 //        session.createQuery("UPDATE User u SET u=:u WHERE u.id=:id").setParameter("u", updatedUser).setParameter("id", id);
 
@@ -54,13 +54,16 @@ public class UserDAOHIbernateImpl implements UserDAO {
         personToBeUpdated.setEmail(updatedUser.getEmail());
 
         System.out.println("update");
+        log.debug("logUpdate");
+
     }
 
     @Override
     @Transactional
-    public void delete(int id) {
+    public void deleteUser(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.createQuery("DELETE User u WHERE u.id=:id").setParameter("id",id);
+        //TODO 111
         System.out.println("DELETE!???");
     }
 }
