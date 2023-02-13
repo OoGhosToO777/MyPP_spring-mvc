@@ -28,7 +28,6 @@ public class Car {
     }
 
     public static List<Car> createFiveCars() {
-
         return list;
     }
 

@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//@Component
 @Slf4j
 public class UserDAOHIbernateImpl implements UserDAO {
 
@@ -45,7 +44,6 @@ public class UserDAOHIbernateImpl implements UserDAO {
     @Transactional
     public void updateUser(int id, User updatedUser) {
         Session session = sessionFactory.getCurrentSession();
-//        session.createQuery("UPDATE User u SET u=:u WHERE u.id=:id").setParameter("u", updatedUser).setParameter("id", id);
 
         User personToBeUpdated = session.get(User.class, id);
 
@@ -63,7 +61,9 @@ public class UserDAOHIbernateImpl implements UserDAO {
     public void deleteUser(int id) {
         Session session = sessionFactory.getCurrentSession();
         session.createQuery("DELETE User u WHERE u.id=:id").setParameter("id",id);
-        //TODO 111
+        //TODO Убрать везде комментарий
+        // Везде где пишется System.out.println использовать логирование! подключи библиотеку slf4j или используй аннотацию @Slf4j над классом и логгируй log.info("MESSAGE.......")
+        //
         System.out.println("DELETE!???");
     }
 }
