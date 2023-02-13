@@ -11,7 +11,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Component
 public class UserDAOImpl implements UserDAO{
 
     private final Util util;
@@ -92,7 +91,6 @@ public class UserDAOImpl implements UserDAO{
         }
     }
 
-//    @Transactional
     public void deleteUser(int id) {
         String request = "DELETE FROM users WHERE id=?";
         try (PreparedStatement preparedStatement = util.getConnection().prepareStatement(request)){

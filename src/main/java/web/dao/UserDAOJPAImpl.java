@@ -1,7 +1,8 @@
 package web.dao;
 
-import lombok.extern.slf4j.Slf4j;
 import model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,27 +11,22 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Component
-@Slf4j
 public class UserDAOJPAImpl implements UserDAO {
+    private static final Logger log = LoggerFactory.getLogger(UserDAOJPAImpl.class);
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public List<User> index() {
-        System.out.println("JPA_index");
+        log.info("log_JPA_index321");
         return entityManager.createQuery("SELECT u FROM User u WHERE u.id>0", User.class).getResultList();
     }
 
     @Override
     public User showUser(int id) {
-        System.out.println("JPA_show111");
-        log.info("logINFO");
-        log.debug("logDEBUG");
-        log.error("logERROR");
+        log.info("log_JPA_show111");
 
-        log.trace("Trace");
-        log.warn("warn");
         return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.id=?1").setParameter(1, id).getSingleResult();
     }
 
@@ -38,7 +34,7 @@ public class UserDAOJPAImpl implements UserDAO {
     @Transactional
     public void saveUser(User user) {
         entityManager.persist(user);
-        System.out.println("JPA_save");
+        log.info("log_JPA_save");
     }
 
     @Override
@@ -55,6 +51,6 @@ public class UserDAOJPAImpl implements UserDAO {
     @Override
     public void deleteUser(int id) {
         entityManager.createQuery("DELETE from User u WHERE u.id=?1").setParameter(1, id).executeUpdate();
-        System.out.println("JPA_delete");
+        log.info("log_JPA_delete");
     }
 }
