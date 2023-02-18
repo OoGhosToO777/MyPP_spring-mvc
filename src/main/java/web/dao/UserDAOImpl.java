@@ -1,6 +1,7 @@
 package web.dao;
 
 import model.User;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import web.config.Util;
 
@@ -11,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class UserDAOImpl implements UserDAO{
 
     private final Util util;

@@ -1,18 +1,23 @@
 package web.dao;
 
 import model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@Component
+@Repository
 public class UserDAOJPAImpl implements UserDAO {
-    private static final Logger log = LoggerFactory.getLogger(UserDAOJPAImpl.class);
+
+    private static final Logger log = Logger.getLogger("UserDAOJPAImpl");
+
+    static {
+        log.setLevel(Level.INFO);
+    }
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -26,7 +31,6 @@ public class UserDAOJPAImpl implements UserDAO {
     @Override
     public User showUser(int id) {
         log.info("log_JPA_show111");
-
         return (User) entityManager.createQuery("SELECT u FROM User u WHERE u.id=?1").setParameter(1, id).getSingleResult();
     }
 
@@ -49,8 +53,9 @@ public class UserDAOJPAImpl implements UserDAO {
     }
 
     @Override
+    @Transactional
     public void deleteUser(int id) {
-        entityManager.createQuery("DELETE from User u WHERE u.id=?1").setParameter(1, id).executeUpdate();
+        entityManager.remove(showUser(id));
         log.info("log_JPA_delete");
     }
 }

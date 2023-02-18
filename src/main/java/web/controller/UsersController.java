@@ -54,7 +54,7 @@ public class UsersController {
         return "users/edit";
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") int id) {
         userDAO.delete(id);
         return "redirect:/users";

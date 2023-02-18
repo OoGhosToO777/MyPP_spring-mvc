@@ -1,6 +1,7 @@
 package web.service;
 
 import model.User;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import web.dao.UserDAO;
 
@@ -11,7 +12,7 @@ public class UserServiceImpl implements UserService{
 
     private final UserDAO userDAO;
 
-    public UserServiceImpl(UserDAO userDAO) {
+    public UserServiceImpl(@Qualifier("userDAOJPAImpl") UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
